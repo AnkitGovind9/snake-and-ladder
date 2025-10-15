@@ -38,7 +38,9 @@
             ],
             "styles": [
               "src/styles.scss"
-            ]
+            ],
+            "outputPath": "dist/snake-ladder/browser",
+            "baseHref": "/"
           },
           "configurations": {
             "production": {
