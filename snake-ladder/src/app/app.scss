@@ -7,13 +7,36 @@
 
 .controls {
   display: flex;
+  justify-content: space-between; /* spread items across full width */
   align-items: center;
   gap: 20px;
   font-size: 18px;
   font-weight: bold;
+  margin-top: 20px;
+  padding: 0 20px; /* optional spacing from sides */
+  width: 90%;
 }
 
 .position {
   min-width: 150px;
   text-align: center;
+}
+.position {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.previous {
+  text-align: left;
+  flex: 1; /* take left space */
+}
+
+app-dice {
+  flex: 0; /* center stays natural width */
+  margin: 0 auto; /* center horizontally */
+}
+
+.current {
+  text-align: right;
+  flex: 1; /* take right space */
 }

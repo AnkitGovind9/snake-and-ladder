@@ -9,10 +9,11 @@
   border-radius: 8px;
   margin-left: 10px;
   transition: transform 0.3s ease;
+  cursor: pointer;
 }
 
 .dice-face.animate {
-  animation: shake 0.1s infinite;
+  animation: shake 0.2s infinite;
 }
 
 @keyframes shake {

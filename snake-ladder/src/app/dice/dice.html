@@ -1,4 +1,3 @@
 <div class="dice">
-  <button (click)="rollDice()">Roll Dice</button> &nbsp; 
-  <div class="dice-face" [class.animate]="rolling">{{ diceValue }}</div>
+  <div class="dice-face" [class.animate]="rolling" (click)="rollDice()">{{ diceValue }}</div>
 </div>
