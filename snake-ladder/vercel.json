@@ -1,8 +1,5 @@
 {
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ]
+  "builds": [{ "src": "angular.json", "use": "@vercel/static-build" }],
+  "routes": [{ "src": "/(.*)", "dest": "/index.html" }],
+  "outputDirectory": "dist/snake-ladder/browser"
 }
