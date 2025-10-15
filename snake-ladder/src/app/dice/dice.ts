@@ -8,10 +8,16 @@ import { Component, Output, EventEmitter } from '@angular/core';
 })
 export class DiceComponent {
   diceValue: number = 1;
+  rolling: boolean = false;
   @Output() diceRolled = new EventEmitter<number>();
 
   rollDice() {
-    this.diceValue = Math.floor(Math.random() * 6) + 1;
-    this.diceRolled.emit(this.diceValue);
+    this.rolling = true;
+    
+    setTimeout(() => {
+      this.diceValue = Math.floor(Math.random() * 6) + 1;
+      this.rolling = false;
+      this.diceRolled.emit(this.diceValue);
+    }, 1000);
   }
 }
