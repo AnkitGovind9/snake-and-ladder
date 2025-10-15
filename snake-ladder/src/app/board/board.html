@@ -1,0 +1,14 @@
+<div class="board-container">
+  <div class="board">
+    <div *ngFor="let row of board" class="row">
+      <div *ngFor="let cell of row" class="cell">{{ cell }}
+        <span *ngIf="playerPosition === cell">🎯</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- <svg class="overlay" xmlns="http://www.w3.org/2000/svg">
+    <line *ngFor="let l of ladderList" [attr.x1]="l.start.x" [attr.y1]="l.start.y" [attr.x2]="l.end.x" [attr.y2]="l.end.y" stroke="green" stroke-width="4" />
+    <line *ngFor="let s of snakeList" [attr.x1]="s.start.x" [attr.y1]="s.start.y" [attr.x2]="s.end.x" [attr.y2]="s.end.y" stroke="red" stroke-width="4" />
+  </svg> -->
+</div>

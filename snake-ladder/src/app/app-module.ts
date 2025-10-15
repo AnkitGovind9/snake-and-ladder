@@ -1,20 +1,18 @@
-import { NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing-module';
-import { App } from './app';
+import { AppComponent } from './app';
+import { BoardComponent } from './board/board';
+import { DiceComponent } from './dice/dice';
 
 @NgModule({
   declarations: [
-    App
+    AppComponent,
+    BoardComponent,
+    DiceComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
-  providers: [
-    provideBrowserGlobalErrorListeners()
-  ],
-  bootstrap: [App]
+  imports: [BrowserModule],
+  providers: [],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
