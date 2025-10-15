@@ -9,18 +9,17 @@ import { Component, Input, OnInit } from '@angular/core';
 export class BoardComponent implements OnInit {
   
   board: number[][] = [];
-  @Input() playerPosition!: number; // ✅ this tells Angular this property is bindable
+  @Input() playerPosition!: number;
   @Input() snakes: { [key: number]: number } = {};
   @Input() ladders: { [key: number]: number } = {};
 
   ladderList: any[] = [];
   snakeList: any[] = [];
 
-  cellSize = 40; // px
+  cellSize = 100;
 
   ngOnInit() {
     this.generateBoard();
-    // this.createLines();
   }
 
   generateBoard() {
@@ -31,7 +30,7 @@ export class BoardComponent implements OnInit {
       for (let j = 0; j < size; j++) {
         row.push(count--);
       }
-      if (i % 2 === 1) row.reverse(); // zig-zag numbering
+      if (i % 2 === 1) row.reverse();
       this.board.push(row);
     }
   }

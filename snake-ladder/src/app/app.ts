@@ -9,6 +9,7 @@ import { Component } from '@angular/core';
 
 export class AppComponent {
   playerPosition = 1;
+  previousPosition: number | undefined;
 
   // snakes: { [key: number]: number } = {
   //   16: 6, 47: 26, 49: 11, 56: 53, 62: 19, 64: 60, 87: 24, 93: 73, 95: 75, 98: 78
@@ -19,6 +20,7 @@ export class AppComponent {
   // };
 
   movePlayer(steps: number) {
+    this.previousPosition=this.playerPosition;
     this.playerPosition += steps;
     if (this.playerPosition > 100) this.playerPosition = 100;
 
