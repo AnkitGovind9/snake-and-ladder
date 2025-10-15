@@ -1,8 +1,9 @@
 <div #boardContainer class="board-container">
   <div class="board">
     <div *ngFor="let row of board" class="row">
-      <div *ngFor="let cell of row" class="cell">{{ cell }}
-        <span *ngIf="playerPosition === cell">🎯</span>
+      <div *ngFor="let cell of row" class="cell" [class.player-here]="playerPosition === cell">
+        <span class="cell-number">{{ cell }}</span>
+        <span *ngIf="playerPosition === cell" class="player-icon">🎯</span>
       </div>
     </div>
   </div>
