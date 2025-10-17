@@ -1,10 +1,11 @@
 <div class="game-container">
-  <app-board [playerPosition]="playerPosition"></app-board>
-  
+  <div class="turn-info">Current Turn: Player {{ currentPlayer + 1 }}</div>
+  <app-board [playerPositions]="playerPositions"></app-board>
+
   <div class="controls">
-    <div class="position previous">Previous Position: {{ previousPosition }}</div>
+    <div class="position previous">Player 1 Previous: {{ previousPositions[0] }}</div>
     <app-dice (diceRolled)="movePlayer($event)"></app-dice>
-    <div class="position current">Current Position: {{ playerPosition }}</div>
+    <div class="position current">Player 2 Previous: {{ previousPositions[1] }}</div>
   </div>
 </div>
 

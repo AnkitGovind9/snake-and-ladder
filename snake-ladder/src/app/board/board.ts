@@ -9,7 +9,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class BoardComponent implements OnInit {
   
   board: number[][] = [];
-  @Input() playerPosition!: number;
+  @Input() playerPositions: number[] = []; // changed from single playerPosition
   @Input() snakes: { [key: number]: number } = {};
   @Input() ladders: { [key: number]: number } = {};
 
@@ -17,7 +17,8 @@ export class BoardComponent implements OnInit {
   snakeList: any[] = [];
 
   cellSize = 100;
-
+  playerIcons: string[] = ['🎯', '🟢']; // emoji for each player
+  
   ngOnInit() {
     this.generateBoard();
   }

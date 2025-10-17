@@ -8,8 +8,9 @@ import { Component } from '@angular/core';
 })
 
 export class AppComponent {
-  playerPosition = 1;
-  previousPosition: number | undefined;
+  playerPositions: number[] = [1, 1]; // two players
+  currentPlayer: number = 0; // index of player whose turn it is
+  previousPositions: number[] = [1, 1]; // previous positions of players
 
   // snakes: { [key: number]: number } = {
   //   16: 6, 47: 26, 49: 11, 56: 53, 62: 19, 64: 60, 87: 24, 93: 73, 95: 75, 98: 78
@@ -20,9 +21,11 @@ export class AppComponent {
   // };
 
   movePlayer(steps: number) {
-    this.previousPosition=this.playerPosition;
-    this.playerPosition += steps;
-    if (this.playerPosition > 100) this.playerPosition = 100;
+    this.previousPositions[this.currentPlayer] = this.playerPositions[this.currentPlayer];
+    let newPosition = this.playerPositions[this.currentPlayer] + steps;
+    if (newPosition > 100) newPosition = 100; // max 100
+    this.playerPositions[this.currentPlayer] = newPosition;
+    this.currentPlayer = (this.currentPlayer + 1) % this.playerPositions.length;
 
     // if (this.ladders[this.playerPosition]) {
     //   this.playerPosition = this.ladders[this.playerPosition];
