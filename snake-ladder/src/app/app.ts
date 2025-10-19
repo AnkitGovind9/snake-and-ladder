@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+// import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { SocketService } from './services/socket.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -7,36 +10,74 @@ import { Component } from '@angular/core';
   styleUrl: './app.scss'
 })
 
-export class AppComponent {
-  playerPositions: number[] = [1, 1]; // two players
-  currentPlayer: number = 0; // index of player whose turn it is
-  previousPositions: number[] = [1, 1]; // previous positions of players
+export class AppComponent implements OnInit, OnDestroy {
+  name = '';
+  roomId = ''; // simple room id (string)
+  isHost = false;
+  desiredPlayers = 2; // host chooses 1..4
+  joined = false;
+  playerNumber: number | null = null; // 0-based
+  playerId = '';
+  players: { name: string; id: string }[] = [];
+  positions: number[] = [];
+  currentPlayer = 0;
+  maxPlayers = 4;
+  subscriptions: Subscription[] = [];
 
-  snakes: { [key: number]: number } = {
-    99: 2, 30: 9, 88: 13, 95: 15, 41: 23, 59: 26, 64: 33, 69: 48, 85: 25, 68: 48, 51: 34, 92: 66, 82: 60
-  };
-  
-  ladders: { [key: number]: number } = {
-    8: 27, 19: 37, 21: 87, 28: 47, 32: 67, 50: 77, 54: 72, 62: 81, 78: 96, 71: 91
-  };
+  // snakes & ladders are from server; keep local copy for drawing board
+  snakes: { [k: number]: number } = {};
+  ladders: { [k: number]: number } = {};
 
-  movePlayer(steps: number) {
-    this.previousPositions[this.currentPlayer] = this.playerPositions[this.currentPlayer];
-    let newPosition = this.playerPositions[this.currentPlayer] + steps;
-    if (newPosition > 100) newPosition = 100;
-    if (this.ladders[newPosition]) {
-      console.log(`Player ${this.currentPlayer + 1} climbs ladder from ${newPosition} to ${this.ladders[newPosition]}`);
-      newPosition = this.ladders[newPosition];
-    }
-    if (this.snakes[newPosition]) {
-      console.log(`Player ${this.currentPlayer + 1} bitten by snake from ${newPosition} to ${this.snakes[newPosition]}`);
-      newPosition = this.snakes[newPosition];
-    }
-    this.playerPositions[this.currentPlayer] = newPosition;
-    if (newPosition === 100) {
-      console.log(`Player ${this.currentPlayer + 1} wins! 🎉`);
-      alert(`Player ${this.currentPlayer + 1} wins! 🎉`);
-    }
-    this.currentPlayer = (this.currentPlayer + 1) % this.playerPositions.length;
+  constructor(private socket: SocketService) {}
+
+  ngOnInit() {
+    this.socket.connect();
+    // handle assignment to client
+    this.subscriptions.push(this.socket.on('roomUpdate').subscribe((data) => {
+      this.players = data.players || [];
+      this.positions = data.positions || [];
+      this.currentPlayer = data.currentPlayer ?? 0;
+      this.snakes = data.snakes || {};
+      this.ladders = data.ladders || {};
+    }));
+
+    this.subscriptions.push(this.socket.on('playerAssigned').subscribe((data: any) => {
+      // server sends private assignment
+      this.playerNumber = data.playerNumber;
+      this.playerId = data.playerId;
+      this.joined = true;
+    }));
+
+    this.subscriptions.push(this.socket.on('gameOver').subscribe((payload: any) => {
+      alert(payload.message);
+    }));
+  }
+
+  createRoom() {
+    if (!this.name.trim()) { alert('Enter name'); return; }
+    this.isHost = true;
+    this.roomId = Math.random().toString(36).slice(2, 8);
+    this.socket.emit('createRoom', { roomId: this.roomId, name: this.name, desiredPlayers: this.desiredPlayers });
+  }
+
+  joinRoom() {
+    if (!this.name.trim() || !this.roomId.trim()) { alert('Enter name and room id'); return; }
+    this.socket.emit('joinRoom', { roomId: this.roomId, name: this.name });
+  }
+
+  startGame() {
+    if (!this.isHost) return;
+    this.socket.emit('startGame', { roomId: this.roomId });
+  }
+
+  onDiceRolled(value: number) {
+    if (this.playerNumber === null) return;
+    // emit roll request — server will validate turn and produce result
+    this.socket.emit('requestRoll', { roomId: this.roomId, playerNumber: this.playerNumber, requestedValue: value });
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(s => s.unsubscribe());
+    this.socket.disconnect();
   }
 }

@@ -1,4 +1,4 @@
-<div class="game-container">
+<!-- <div class="game-container">
   <div class="turn-info">Current Turn: Player {{ currentPlayer + 1 }}</div>
   <app-board [playerPositions]="playerPositions"></app-board>
 
@@ -8,6 +8,55 @@
     <div class="position current">Player 2 Previous: {{ previousPositions[1] }}</div>
   </div>
 </div>
-
+ -->
 
   <!-- <app-board [playerPosition]="playerPosition" [snakes]="snakes" [ladders]="ladders"></app-board> -->
+
+<div class="container">
+  <h1>Snake & Ladder — Multiplayer</h1>
+
+  <div *ngIf="!joined" class="join-panel">
+    <input [(ngModel)]="name" placeholder="Your name" />
+    <div class="host-actions">
+      <label>Players:
+        <select [(ngModel)]="desiredPlayers">
+          <option *ngFor="let n of [2,3,4]" [value]="n">{{n}}</option>
+        </select>
+      </label>
+      <button (click)="createRoom()">Create Room (Host)</button>
+    </div>
+
+    <div class="join-actions">
+      <input [(ngModel)]="roomId" placeholder="Room ID to join" />
+      <button (click)="joinRoom()">Join Room</button>
+    </div>
+  </div>
+
+  <div *ngIf="joined" class="lobby">
+    <p>Your name: <b>{{name}}</b> — you are Player {{playerNumber !== null ? (playerNumber + 1) : '?'}}</p>
+    <p>Room: <b>{{roomId}}</b></p>
+
+    <div class="players">
+      <h3>Players in Room</h3>
+      <ul>
+        <li *ngFor="let p of players; let i = index">
+          Player {{i+1}}: {{ p.name }} <span *ngIf="playerNumber === i"> (YOU)</span>
+        </li>
+      </ul>
+    </div>
+
+    <div *ngIf="isHost">
+      <button (click)="startGame()">Start Game</button>
+    </div>
+
+    <div class="game-area" *ngIf="positions && positions.length">
+      <div class="turn-info">Current turn: Player {{ currentPlayer + 1 }}</div>
+      <app-board [playerPositions]="positions" [snakes]="snakes" [ladders]="ladders" [hideOtherPlayers]="true" [myPlayerNumber]="playerNumber"></app-board>
+
+      <div class="controls">
+        <app-dice *ngIf="playerNumber === currentPlayer" (diceRolled)="onDiceRolled($event)"></app-dice>
+        <div *ngIf="playerNumber !== currentPlayer">Waiting for Player {{currentPlayer + 1}}</div>
+      </div>
+    </div>
+  </div>
+</div>

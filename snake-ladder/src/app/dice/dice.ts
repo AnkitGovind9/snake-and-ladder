@@ -7,17 +7,16 @@ import { Component, Output, EventEmitter } from '@angular/core';
   styleUrl: './dice.scss'
 })
 export class DiceComponent {
-  diceValue: number = 1;
-  rolling: boolean = false;
+  rolling = false;
   @Output() diceRolled = new EventEmitter<number>();
 
   rollDice() {
+    if (this.rolling) return;
     this.rolling = true;
-    
     setTimeout(() => {
-      this.diceValue = Math.floor(Math.random() * 6) + 1;
+      const value = Math.floor(Math.random() * 6) + 1;
       this.rolling = false;
-      this.diceRolled.emit(this.diceValue);
-    }, 1000);
+      this.diceRolled.emit(value);
+    }, 800);
   }
 }
