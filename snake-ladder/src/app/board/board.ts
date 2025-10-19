@@ -4,12 +4,12 @@ import { Component, Input, OnInit } from '@angular/core';
   selector: 'app-board',
   standalone: false,
   templateUrl: './board.html',
-  styleUrl: './board.scss'
+  styleUrls: ['./board.scss']
 })
 export class BoardComponent implements OnInit {
   
   board: number[][] = [];
-  @Input() playerPositions: number[] = []; // changed from single playerPosition
+  @Input() playerPositions: number[] = []; // for multiple players
   @Input() snakes: { [key: number]: number } = {};
   @Input() ladders: { [key: number]: number } = {};
 
@@ -36,23 +36,4 @@ export class BoardComponent implements OnInit {
     }
   }
 
-  // createLines() {
-  //   this.ladderList = Object.keys(this.ladders).map(key => {
-  //     const start = Number(key);
-  //     const end = this.ladders[start];
-  //     return { start: this.cellToXY(start), end: this.cellToXY(end) };
-  //   });
-
-  //   this.snakeList = Object.keys(this.snakes).map(key => {
-  //     const start = Number(key);
-  //     const end = this.snakes[start];
-  //     return { start: this.cellToXY(start), end: this.cellToXY(end) };
-  //   });
-  // }
-  
-  // cellToXY(cell: number) {
-  //   const row = Math.floor((100 - cell) / 10);
-  //   const col = (row % 2 === 0) ? (cell - 1) % 10 : 9 - ((cell - 1) % 10);
-  //   return { x: col * this.cellSize + this.cellSize / 2, y: row * this.cellSize + this.cellSize / 2 };
-  // }
 }
