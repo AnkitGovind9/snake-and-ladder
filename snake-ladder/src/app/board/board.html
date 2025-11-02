@@ -3,7 +3,7 @@
     <div *ngFor="let row of board" class="row">
       <div *ngFor="let cell of row" class="cell">
         <ng-container *ngFor="let pos of playerPositions; let i = index">
-          <span *ngIf="pos === cell" class="player-icon">{{ playerIcons[i] }}</span>
+          <span *ngIf="pos === cell || (pos === 0 && cell === 1)" class="player-icon">{{ playerIcons[i] }}</span>
         </ng-container>
       </div>
     </div>

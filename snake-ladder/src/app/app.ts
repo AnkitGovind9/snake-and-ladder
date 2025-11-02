@@ -46,8 +46,8 @@ export class AppComponent implements OnInit {
       }
     }
 
-    this.playerPositions = new Array(numPlayers).fill(1);
-    this.previousPositions = new Array(numPlayers).fill(1);
+    this.playerPositions = new Array(numPlayers).fill(0);
+    this.previousPositions = new Array(numPlayers).fill(0);
 
     // Unique colored emojis
     const emojis = ['🔴', '🟢', '🔵', '🟡', '🟣', '🟠'];
