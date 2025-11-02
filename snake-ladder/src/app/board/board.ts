@@ -9,7 +9,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class BoardComponent implements OnInit {
   
   board: number[][] = [];
-  @Input() playerPositions: number[] = []; // for multiple players
+  @Input() playerPositions: number[] = []; 
   @Input() snakes: { [key: number]: number } = {};
   @Input() ladders: { [key: number]: number } = {};
 
@@ -17,7 +17,7 @@ export class BoardComponent implements OnInit {
   snakeList: any[] = [];
 
   cellSize = 100;
-  playerIcons: string[] = ['🎯', '🟢']; // emoji for each player
+  playerIcons: string[] = ['🎯', '🟢'];
   
   ngOnInit() {
     this.generateBoard();
@@ -35,5 +35,4 @@ export class BoardComponent implements OnInit {
       this.board.push(row);
     }
   }
-
 }
