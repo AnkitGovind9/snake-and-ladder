@@ -23,7 +23,15 @@
   align-items: flex-start;
   gap: 20px;
   width: 100%;
-  flex-wrap: nowrap;
+}
+
+/* Left side: player info + dice */
+.left-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  min-width: 180px;
 }
 
 .previous {
@@ -32,20 +40,19 @@
   gap: 8px;
   font-size: 16px;
   font-weight: bold;
-  min-width: 160px;
+  width: 100%;
   background-color: rgba(255, 255, 255, 0.7);
   padding: 10px 12px;
   border-radius: 10px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-app-board {
-  flex-shrink: 0;
-}
-
 .dice-area {
   display: flex;
-  align-items: center;
   justify-content: center;
-  min-width: 120px;
+  align-items: center;
+}
+
+app-board {
+  flex-shrink: 0;
 }
