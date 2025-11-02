@@ -1,10 +1,20 @@
-<div class="game-container">
-  <div class="turn-info">Current Turn: Player {{ currentPlayer + 1 }}</div>
-  <app-board [playerPositions]="playerPositions"></app-board>
+<div class="game-container" *ngIf="playerPositions.length">
+  <div class="turn-info">
+    Current Turn: Player {{ currentPlayer + 1 }} {{ playerIcons[currentPlayer] }}
+  </div>
+
+  <app-board 
+    [playerPositions]="playerPositions" 
+    [playerIcons]="playerIcons"
+  ></app-board>
 
   <div class="controls">
-    <div class="position previous">Player 1 Previous: {{ previousPositions[0] }}</div>
+    <div class="position previous">
+      <div *ngFor="let prev of previousPositions; let i = index">
+        Player {{ i + 1 }} {{ playerIcons[i] }} Prev: {{ prev }}
+      </div>
+    </div>
+
     <app-dice (diceRolled)="movePlayer($event)"></app-dice>
-    <div class="position current">Player 2 Previous: {{ previousPositions[1] }}</div>
   </div>
 </div>

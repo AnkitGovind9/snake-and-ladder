@@ -7,18 +7,13 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./board.scss']
 })
 export class BoardComponent implements OnInit {
-  
-  board: number[][] = [];
   @Input() playerPositions: number[] = []; 
+  @Input() playerIcons: string[] = []; 
   @Input() snakes: { [key: number]: number } = {};
   @Input() ladders: { [key: number]: number } = {};
 
-  ladderList: any[] = [];
-  snakeList: any[] = [];
+  board: number[][] = [];
 
-  cellSize = 100;
-  playerIcons: string[] = ['🎯', '🟢'];
-  
   ngOnInit() {
     this.generateBoard();
   }
