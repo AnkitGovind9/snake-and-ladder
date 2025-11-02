@@ -12,17 +12,13 @@ export class BoardComponent implements OnInit {
   @Input() playerPositions: number[] = []; // for multiple players
   @Input() snakes: { [key: number]: number } = {};
   @Input() ladders: { [key: number]: number } = {};
-  @Input() hideOtherPlayers: boolean = false; // hide other players' details
-  @Input() myPlayerNumber: number | null = null;
 
-  // ladderList: any[] = [];
-  // snakeList: any[] = [];
+  ladderList: any[] = [];
+  snakeList: any[] = [];
 
-  // cellSize = 100;
-  // playerIcons: string[] = ['🎯', '🟢']; // emoji for each player
-
-  playerIcons = ['🎯','🟢','🔷','🔶'];
-
+  cellSize = 100;
+  playerIcons: string[] = ['🎯', '🟢']; // emoji for each player
+  
   ngOnInit() {
     this.generateBoard();
   }
@@ -30,7 +26,6 @@ export class BoardComponent implements OnInit {
   generateBoard() {
     const size = 10;
     let count = 100;
-    this.board = [];
     for (let i = 0; i < size; i++) {
       let row: number[] = [];
       for (let j = 0; j < size; j++) {
@@ -41,24 +36,4 @@ export class BoardComponent implements OnInit {
     }
   }
 
-  tokensAt(cell: number): { idx: number; icon: string }[] {
-    const tokens: { idx: number; icon: string }[] = [];
-    this.playerPositions.forEach((pos, idx) => {
-      if (pos === cell) {
-        // if hideOtherPlayers true, only show if token is mine
-        if (!this.hideOtherPlayers || this.myPlayerNumber === idx) {
-          tokens.push({ idx, icon: this.playerIcons[idx] || '⭕' });
-        }
-      }
-    });
-    return tokens;
-  }
-
-  isSnakeStart(cell: number) {
-    return !!this.snakes[cell];
-  }
-  
-  isLadderStart(cell: number) {
-    return !!this.ladders[cell];
-  }
 }

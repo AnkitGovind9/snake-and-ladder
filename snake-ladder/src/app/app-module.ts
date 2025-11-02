@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppComponent } from './app';
 import { BoardComponent } from './board/board';
 import { DiceComponent } from './dice/dice';
 import { FormsModule } from '@angular/forms';
-import { PlayerComponent } from './player/player';
+import { Player } from './player/player';
 import { SocketService } from './services/socket.service';
 
 @NgModule({
@@ -13,7 +12,7 @@ import { SocketService } from './services/socket.service';
     AppComponent,
     BoardComponent,
     DiceComponent,
-    PlayerComponent
+    Player
   ],
   imports: [BrowserModule, FormsModule],
   providers: [SocketService],

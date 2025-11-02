@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-player',
@@ -6,8 +6,6 @@ import { Component, Input } from '@angular/core';
   templateUrl: './player.html',
   styleUrl: './player.scss'
 })
-export class PlayerComponent {
-  @Input() name = '';
-  @Input() number: number | null = null;
-  @Input() position = 1;
+export class Player {
+
 }
