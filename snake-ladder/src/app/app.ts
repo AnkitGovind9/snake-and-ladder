@@ -12,7 +12,7 @@ export class AppComponent implements OnInit {
   previousPositions: number[] = [];
   currentPlayer: number = 0;
   playerIcons: string[] = [];
-
+  playerNames: string[] = []; // ✅ NEW: store player names
   maxPlayers = 4;
 
   snakes: { [key: number]: number } = {
@@ -52,6 +52,12 @@ export class AppComponent implements OnInit {
     // Unique colored emojis
     const emojis = ['🔴', '🟢', '🔵', '🟡', '🟣', '🟠'];
     this.playerIcons = emojis.slice(0, numPlayers);
+
+    for (let i = 0; i < numPlayers; i++) {
+      let name = prompt(`Enter name for Player ${i + 1} ${this.playerIcons[i]}:`) || `Player ${i + 1}`;
+      name = name.trim() === '' ? `Player ${i + 1}` : name;
+      this.playerNames.push(name);
+    }
   }
 
   movePlayer(steps: number) {
