@@ -1,4 +1,4 @@
-<!-- <div class="game-container" *ngIf="playerPositions.length">
+<div class="game-container" *ngIf="playerPositions.length">
   <div class="turn-info">Current Turn: {{ playerNames[currentPlayer] }} {{ playerIcons[currentPlayer] }}
   </div>
 
@@ -14,34 +14,5 @@
     </div>
 
     <app-board [playerPositions]="playerPositions" [playerIcons]="playerIcons"></app-board>
-  </div>
-</div> -->
-
-<div class="game-container" *ngIf="playerPositions.length">
-  <div class="turn-info">
-    Current Turn: {{ playerNames[currentPlayer] }} {{ playerIcons[currentPlayer] }}
-  </div>
-
-  <div class="main-area">
-    <!-- Left Panel -->
-    <div class="left-panel">
-      <div class="position previous">
-        <div *ngFor="let prev of previousPositions; let i = index">
-          {{ playerNames[i] }} {{ playerIcons[i] }} Prev: {{ prev }}
-        </div>
-      </div>
-
-      <div class="dice-area">
-        <app-dice (diceRolled)="movePlayer($event)"></app-dice>
-      </div>
-    </div>
-
-    <!-- Board -->
-    <div class="board-wrapper">
-      <app-board 
-        [playerPositions]="playerPositions" 
-        [playerIcons]="playerIcons">
-      </app-board>
-    </div>
   </div>
 </div>
